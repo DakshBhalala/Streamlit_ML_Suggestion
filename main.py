@@ -164,7 +164,11 @@ st.markdown(
 # --- Load Data ---
 @st.cache_data
 def load_data(name):
-    return pd.read_csv(f"data/{name}.csv")
+    path = f"data/{name}.csv"
+    if not os.path.exists(path):
+        st.error(f"Data file not found: {path}")
+        return pd.DataFrame()
+    return pd.read_csv(path)
 
 
 @st.cache_data
